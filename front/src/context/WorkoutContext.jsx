@@ -1,12 +1,37 @@
-import { createContext, useState } from "react";
+import { createContext, useReducer } from "react";
 
- const WorkoutContext = createContext()
+export const WorkoutsContext = createContext('this is not working ffs')
 
-export function WorkoutProvider({children}){
-    const [workoutList,setWorkoutList]=useState('context api testing');
+const initialState={
+    workouts:[]
+}
+export const workoutReducer = (state,action)=>{
+    switch (action.type) {
+        case 'FETCH_WORKOUTS':
+            return {
+                ...state,workouts:action.payload
+                // workouts:action.payload
+            }
+        case 'ADD_WORKOUT':
+            return {
+                ...state,workouts:[action.payload,...state.workouts]
+            }
+        case 'DELETE_WORKOUT':
+            return {
+                ...state,workouts:state.workouts.filter(workout=>{
+                    if(workout._id===action.payload) return
+                    return workout
+                })
+            }
+        default :
+            return state
+    }
+}
+export const WorkoutsProvider = ({children})=>{
+    const [state,dispatch]=useReducer(workoutReducer,initialState)
     return (
-        <WorkoutContext.Provider value={{workoutList,setWorkoutList}}>
+        <WorkoutsContext.Provider value={{state,dispatch}}>
             {children}
-        </WorkoutContext.Provider>
-    )
+        </WorkoutsContext.Provider>)
+    
 }

@@ -1,29 +1,19 @@
-import { useState } from "react"
-import { useEffect } from "react"
-import { WorkoutProvider } from "./context/WorkoutContext"
-import Home from "./components/Home"
+import Workouts from './pages/Workouts'
+import {Routes,Route} from 'react-router-dom'
+import  Home  from './pages/Home'
+import About from './pages/About'
+import Navbar from './components/Navbar'
 function App() {
-  const [data,setData]=useState([])
-  
-  useEffect(()=>{
-      const fetchWorkouts = async ()=>{
-        const response = await fetch('http://localhost:4000/api/workouts')
-        const json = await response.json()
-        if(response.ok){
-          setData(json)
-        }
-      }
-      fetchWorkouts()
-  },[])
+
   return (
-    <WorkoutProvider>
-      <div className="App">
-      {/* {workoutList} {data.map(item=>{
-      return  <h1>{item.title}</h1>
-      })} */}
-      <Home/>
-    </div>
-    </WorkoutProvider>
+    <>
+    <Navbar/>
+    <Routes>
+      <Route path='/' element={<Home/>} />
+      <Route path='/workouts' element={<Workouts/>} />
+      <Route path='about' element={<About/>} />
+    </Routes>
+      </>
   )
 }
 
