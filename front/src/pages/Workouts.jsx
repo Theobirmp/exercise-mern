@@ -1,5 +1,7 @@
+import { Box } from '@mui/material'
 import React, { useEffect,useState } from 'react'
 import { useContext } from 'react'
+import ExerciseCard from '../components/ExerciseCard'
 import { WorkoutsContext } from '../context/WorkoutContext'
 const Workouts = () => {
     const {state,dispatch}=useContext(WorkoutsContext)
@@ -44,29 +46,21 @@ const Workouts = () => {
       // })
       // .then(response=>response.json()).then((json)=>dispatch({action:'ADD_WORKOUT',payload:json}))
     }
-    function handleDeleteRequest(id){
-      async function deleteRequest(id){
-        const response=await fetch(`http://localhost:4000/api/workouts/${id}`,{method:'DELETE'})
-        const json = await response.json()
-        if(response.ok) dispatch({type:'DELETE_WORKOUT',payload:id})
-      }
-    deleteRequest(id)
-    }
-    // console.log(state)
+    
+    console.log(state)
   return (
-    <div style={{display:'flex',backgroundColor:'lightgray',gap:'2rem',flexWrap:'wrap',padding:'1rem'}}>
+    <Box style={{display:'flex',justifyContent:'space-around',border:'solid 1px red',padding:'2rem'}}>
+    <div style={{display:'flex',flexDirection:'column',backgroundColor:'lightgray',gap:'2rem',flexWrap:'wrap',padding:'1rem',width:'50%'}}>
       {state.workouts && state.workouts.map(workout=>(
-        <div key={workout._id} style={{display:'flex',flexDirection:'column',backgroundColor:'lightblue',width:'200px'}}>
-          <h3>Title</h3>
-          <span>{workout.title}</span>
-          <span>{workout.reps}</span>
-          <span>{workout.load}</span>
-          <button onClick={()=>handleDeleteRequest(workout._id)}>Remove</button>
-        </div>
+        <ExerciseCard key={workout._id} workout={workout}/>
       ))}
-    <input value={input} onChange={handleInputChange}/>
-    <button onClick={handleSendPostRequest}>Send POST request</button>
+    
     </div>
+    <div>
+      <input value={input} onChange={handleInputChange}/>
+      <button onClick={handleSendPostRequest}>Send POST request</button>
+    </div>
+    </Box>
     // <>{state.workouts && state.workouts.map(workout=>
     // <div key={workout._id}>{workout.reps}
     // </div>
