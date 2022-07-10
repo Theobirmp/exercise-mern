@@ -18,16 +18,15 @@ import 'swiper/css/scrollbar';
 import '../css/slider.css'
 const SliderContainer = styled(Box)({
     width:'100%',
-    height:'500px',
+    // height:'500px',
     display:'flex',
     justifyContent:'center',
     alignItems:'center',
-    marginTop:'2rem'
   })
 
 const Slider = () => {
   return (
-    <SliderContainer>
+    <SliderContainer sx={{marginTop:{xs:'20px',md:'2rem'}}}>
    {/* SLIDER */}
    <Swiper
       modules={[Pagination]}
