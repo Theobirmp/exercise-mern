@@ -4,7 +4,7 @@ import  Home  from './pages/Home'
 import About from './pages/About'
 import Navbar from './components/Navbar'
 function App() {
-
+console.log('this is working')
   return (
     <>
     <Navbar/>
