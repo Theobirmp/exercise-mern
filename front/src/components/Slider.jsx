@@ -6,7 +6,7 @@ import workoutImage1 from '../../public/images/swiperImage1.jpg'
 
 //swiper imports
 // import Swiper core and required modules
-import { Navigation, Pagination, Scrollbar, A11y } from 'swiper';
+import { Pagination } from 'swiper';
 
 import { Swiper, SwiperSlide } from 'swiper/react';
 

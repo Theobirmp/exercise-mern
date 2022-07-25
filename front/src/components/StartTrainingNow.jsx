@@ -1,7 +1,7 @@
 import { Button, Typography } from '@mui/material'
 import { Box } from '@mui/system'
 import React from 'react'
-import styled from '@emotion/styled'
+import {styled} from '@mui/system'
 const AnimatedButton=styled('button')({
   position:'relative',
   backgroundColor:'#32cd32',

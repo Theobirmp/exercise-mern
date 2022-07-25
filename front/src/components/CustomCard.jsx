@@ -46,7 +46,6 @@ const CardTitle=styled('h4')({
     fontSize:'1.5rem',
     fontWeight:'bold',
     fontFamily:'sans-serif',
-    textTransform:'capitalize',
     letterSpacing:'1px',
     color:'white',
     textTransform:'uppercase',
