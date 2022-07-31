@@ -109,6 +109,7 @@ export default function ButtonAppBar() {
         </Stack>
           </Drawer>
         </Box>
+        <Link to='/signup'>Signup</Link>
     </NavbarContainer>
   );
 }
