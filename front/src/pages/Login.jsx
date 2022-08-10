@@ -1,21 +1,18 @@
 import React, { useState } from 'react'
 import { FormControl, TextField, Paper } from '@mui/material'
-import { Link } from 'react-router-dom'
-import { useSignup } from '../hooks/useSignup'
 import { SignupContainer } from '../styled components/SignupContainer'
 import { PageContainer } from '../styled components/PageContainer'
 import { SubmitButton } from '../styled components/SubmitButton'
+import { useLogin } from '../hooks/useLogin'
 
-
-
-const Signup =  () => {
-    const {signUp,isLoading,error}=useSignup()
+const Login =  () => {
+    const {login,isLoading,error}=useLogin()
     const [email,setEmail]=useState('')
     const [password,setPassword]=useState('')
-    const handleSubmit= async(e)=>{
+    const handleSubmit= async (e)=>{
         e.preventDefault()
-        await signUp(email,password)
-        console.log('submited the form')
+        await login(email,password)
+        console.log('submited the form - attempting to log in')
     }
   return (
     <PageContainer>
@@ -28,10 +25,10 @@ const Signup =  () => {
         </FormControl>
         <SubmitButton disabled={isLoading} onClick={handleSubmit}>Submit</SubmitButton>
         {error?(<Paper style={{padding:'1rem',backgroundColor:'#e65f5c',color:'white',fontWeight:'bold',margin:'0 auto'}}>{error}</Paper>):(<></>)}
-        <Link to='/login'>already have an account?Log in here</Link>
+        {/* <Link to='/login'>already have an account?Log in here</Link> */}
         </SignupContainer>
     </PageContainer>
   )
 }
 
-export default Signup
+export default Login

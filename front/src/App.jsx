@@ -1,22 +1,23 @@
 import Workouts from './pages/Workouts'
-import {Routes,Route} from 'react-router-dom'
+import {Routes,Route,Navigate} from 'react-router-dom'
 import  Home  from './pages/Home'
 import About from './pages/About'
 import Navbar from './components/Navbar'
-import Footer from './components/Footer'
 import { useAuthenticationContext } from './hooks/useAuthenticationContext'
+import Footer from './components/Footer'
 import Signup from './pages/Signup'
+import Login from './pages/Login'
 function App() {
-  const {userInfo}=useAuthenticationContext()
+  const {user}=useAuthenticationContext()
   return (
     <>
-    <div>{userInfo}</div>
     <Navbar/>
     <Routes>
       <Route path='/' element={<Home/>} />
-      <Route path='/workouts' element={<Workouts/>} />
+      <Route path='/workouts' element={user?(<Workouts/>):(<Home/>)} />
       <Route path='about' element={<About/>} />
-      <Route path='/signup' element={<Signup/>}/>
+      <Route path='/signup' element={!user?(<Signup/>):(<Workouts/>)}/>
+      <Route path='/login' element={!user?(<Login/>):(<Workouts/>)}/>
     </Routes>
     <Footer/>
       </>

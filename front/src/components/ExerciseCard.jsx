@@ -5,14 +5,21 @@ import React, { useContext } from 'react'
 import DeleteIcon from '@mui/icons-material/Delete';
 import { WorkoutsContext } from '../context/WorkoutContext';
 import formatDistanceToNow from 'date-fns/formatDistanceToNow'
+import { useAuthenticationContext } from '../hooks/useAuthenticationContext';
 const ExerciseCard = (workout) => {
+  const {user}=useAuthenticationContext()
     const {title,reps,load,_id,createdAt}=workout.workout
     const {dispatch}=useContext(WorkoutsContext)
     function handleDeleteRequest(id){
         async function deleteRequest(id){
-          const response=await fetch(`http://localhost:4000/api/workouts/${id}`,{method:'DELETE'})
+          const response=await fetch(`http://localhost:4000/api/workouts/${id}`,{method:'DELETE',headers:{
+            'Authorization':`Bearer ${user.token}`
+          }})
           const json = await response.json()
           if(response.ok) dispatch({type:'DELETE_WORKOUT',payload:id})
+        }
+        if(!user){
+          return
         }
       deleteRequest(id)
       }

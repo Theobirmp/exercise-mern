@@ -1,8 +1,9 @@
 import { Box, Button, Paper, Stack, TextField } from '@mui/material'
 import React, { useContext, useState } from 'react'
 import { WorkoutsContext } from '../context/WorkoutContext'
-
+import { useAuthenticationContext } from '../hooks/useAuthenticationContext'
 const WorkoutForm = () => {
+    const {user}=useAuthenticationContext()
     const [titleInput,setTitleInput]=useState('')
     const [repsInput,setRepsInput]=useState('')
     const [loadInput,setLoadInput]=useState('')
@@ -21,7 +22,8 @@ const WorkoutForm = () => {
               load:loadInput,
               reps:repsInput
             }),headers: {
-              "Content-type": "application/json; charset=UTF-8"
+              "Content-type": "application/json; charset=UTF-8",
+              'Authorization':`Bearer ${user.token}`
           }
           })
           if(!response.ok){
@@ -31,6 +33,10 @@ const WorkoutForm = () => {
           const data=await response.json()
           dispatch({type:'ADD_WORKOUT',payload:data})
         }
+      if(!user){
+        setError('You must be logged in')
+        return
+      }
         postWorkout()
         setError(false)
         setTitleInput('')
@@ -45,7 +51,7 @@ const WorkoutForm = () => {
             <TextField label='load' required value={loadInput} onChange={(e)=>setLoadInput(e.target.value)}/>
             <Button variant='contained' style={{backgroundColor:"#32cd32"}} onClick={handleSendPostRequest}>Add Your Favourite Workout</Button>
         </Stack>
-        {error?(<Paper style={{padding:'1rem',backgroundColor:'#e65f5c',color:'white',fontWeight:'bold',margin:'30px auto'}}>The data you typed is not valid!</Paper>):(<></>)}
+        {error?(<Paper style={{padding:'1rem',backgroundColor:'#e65f5c',color:'white',fontWeight:'bold',margin:'30px auto',textAlign:'center'}}>{error}</Paper>):(<></>)}
             
     </Box>
   )

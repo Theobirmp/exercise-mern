@@ -12,6 +12,7 @@ import {styled} from '@mui/system';
 import { useState } from 'react';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import MenuIcon from '@mui/icons-material/Menu';
+import { useLogout } from '../hooks/useLogout';
 const NavbarContainer=styled(Stack)({
     display:'flex',
     flexDirection:'row',
@@ -53,6 +54,10 @@ export default function ButtonAppBar() {
     const handleClose = () => {
       setAnchorEl(null);
     };
+    const {logout}=useLogout()
+    function handleLogout(){
+      logout()
+    }
   return (
     <NavbarContainer sx={{height:'100px',backgroundColor:'primary'}}>
       {/* LOGO */}
@@ -110,6 +115,8 @@ export default function ButtonAppBar() {
           </Drawer>
         </Box>
         <Link to='/signup'>Signup</Link>
+        <Link to='/login'>Login</Link>
+        <button onClick={handleLogout}>logout</button>
     </NavbarContainer>
   );
 }
