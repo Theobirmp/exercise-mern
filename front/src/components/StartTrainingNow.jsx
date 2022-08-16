@@ -30,7 +30,7 @@ const AnimatedButton=styled('button')({
 })
 const StartTrainingNow = () => {
   return (
-    <Box sx={{margin:'0 auto',width:'clamp(200px,70%,700px)',
+    <Box sx={{margin:'0 auto',width:'clamp(300px,70%,700px)',
     aspectRatio:'2/1', 
     boxShadow: 'rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;',
     marginTop:'2rem',

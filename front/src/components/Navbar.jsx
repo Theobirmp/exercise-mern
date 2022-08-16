@@ -8,42 +8,17 @@ import IconButton from '@mui/material/IconButton';
 import HomeIcon from '@mui/icons-material/Home';
 import { Link } from 'react-router-dom';
 import { Divider, Drawer, Menu, MenuItem, Stack } from '@mui/material';
-import {styled} from '@mui/system';
 import { useState } from 'react';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import MenuIcon from '@mui/icons-material/Menu';
 import { useLogout } from '../hooks/useLogout';
-const NavbarContainer=styled(Stack)({
-    display:'flex',
-    flexDirection:'row',
-    alignItems:'center',
-    backgroundColor:'#32cd32',
-    justifyContent:'space-between'
-})
-const StyledLink=styled(Link)({
-    fontSize:'30px',
-    textDecoration:'none',
-    color:"white",
-    position:'relative',
-    transition:'font-size .1s linear',
-    '&::after':{
-      content:'""',
-      position:'absolute',
-      width:'100%',
-      height:'1px',
-      maxWidth:'0',
-      left:'0',
-      bottom:'-5px',
-      backgroundColor:'black',
-      transition:'max-width .2s linear',
-    },
-    '&:hover::after':{
-      maxWidth:'100%'
-    },
-    '&:hover':{
-      fontSize:'40px'
-    }
-})
+import { useAuthenticationContext } from '../hooks/useAuthenticationContext'
+import {NavbarContainer} from '../styledComponents/NavbarContainer'
+import {StyledLink} from '../styledComponents/StyledLink'
+import {StyledButton} from '../styledComponents/StyledLink'
+
+
+
 export default function ButtonAppBar() {
     const [anchorEl, setAnchorEl] = useState(null);
     const open = Boolean(anchorEl);
@@ -57,7 +32,9 @@ export default function ButtonAppBar() {
     const {logout}=useLogout()
     function handleLogout(){
       logout()
+      setAnchorEl(null);
     }
+const {user}=useAuthenticationContext()
   return (
     <NavbarContainer sx={{height:'100px',backgroundColor:'primary'}}>
       {/* LOGO */}
@@ -69,12 +46,12 @@ export default function ButtonAppBar() {
         </Box>
         {/* NAVIGATION LINKS */}
         <Box sx={{alignItems:'center',px:'1rem',gap:"4rem",display:{xs:'none',md:'flex'}}}>
-        <StyledLink to='/'>Home</StyledLink>
-        <StyledLink to='/workouts'>Workouts</StyledLink>
-        <StyledLink to='/about'>About</StyledLink>
+        <StyledLink style={{width:'80px'}} to='/'>Home</StyledLink>
+        <StyledLink style={{width:'130px'}} to={user?'/workouts':'/login'}>Workouts</StyledLink>
+        <StyledLink style={{width:'80px'}} to='/about'>About</StyledLink>
         </Box>
         {/* PROFILE LOGIN SIGN UP LOGOUT */}
-        <Box sx={{marginLeft:{xs:'auto',md:'unset'}}}>
+        {user?(<Box sx={{marginLeft:{xs:'auto',md:'unset'}}}>
         <div>
       <IconButton
         id="basic-button"
@@ -83,7 +60,9 @@ export default function ButtonAppBar() {
         aria-expanded={open ? 'true' : undefined}
         size='large'
         onClick={handleClick}
+        style={{position:'relative'}}
       >
+        {/* <p style={{position:'absolute',fontSize:'1.75rem',width:'100%',height:'0%',top:'100%',display:'flex',justifyContent:'center',alignItems:'center',color:"red"}}>{user.email.substr(0,2 )}</p> */}
         <AccountCircleIcon sx={{height:"80px",width:'80px'}}/>
       </IconButton>
       <Menu
@@ -95,12 +74,16 @@ export default function ButtonAppBar() {
           'aria-labelledby': 'basic-button',
         }}
       >
+        <p style={{marginBottom:"1rem",fontSize:'1.25rem',padding:'0rem 1rem',fontWeightL:'bold'}}>{user.email}</p>
         <MenuItem onClick={handleClose}>Profile</MenuItem>
         <MenuItem onClick={handleClose}>My account</MenuItem>
-        <MenuItem onClick={handleClose}>Logout</MenuItem>
+        <MenuItem onClick={handleLogout}>Logout</MenuItem>
+        {/* {user?(<button onClick={handleLogout}>logout</button>):(<></>)} */}
+
       </Menu>
     </div>
-        </Box>
+    {/* mobile navigation */}
+        </Box>):<></>}
         <Box sx={{display:{xs:'block',md:'none'}}} >
           <IconButton onClick={()=>setIsDrawerOpen(true)}><MenuIcon style={{height:'60px',width:'60px'}}/></IconButton>
           <Drawer anchor='right' open={isDrawerOpen} onClose={()=>setIsDrawerOpen(false)}>
@@ -111,12 +94,41 @@ export default function ButtonAppBar() {
             <Divider style={{backgroundColor:'white',height:'1px',width:'100%',marginTop:'-50px'}}></Divider>
             <StyledLink to='/about'>About</StyledLink>
             <Divider style={{backgroundColor:'white',height:'1px',width:'100%',marginTop:'-50px'}}></Divider>
+            {user?(<>
+            <StyledLink to='/about'>Profile</StyledLink>
+            <Divider style={{backgroundColor:'white',height:'1px',width:'100%',marginTop:'-50px'}}></Divider>
+            <StyledLink to='/about'>My Account</StyledLink>
+            <Divider style={{backgroundColor:'white',height:'1px',width:'100%',marginTop:'-50px'}}></Divider>
+            <StyledButton onClick={handleLogout}>Logout</StyledButton>
+            <Divider style={{backgroundColor:'white',height:'1px',width:'100%',marginTop:'-50px'}}></Divider>
+            </>)
+            :
+            (<>
+              <StyledLink to='/signup'>Sign up</StyledLink>
+              <Divider style={{backgroundColor:'white',height:'1px',width:'100%',marginTop:'-50px'}}></Divider>
+              <StyledLink to='/login'>Log in</StyledLink>
+              <Divider style={{backgroundColor:'white',height:'1px',width:'100%',marginTop:'-50px'}}></Divider>
+            </>)}
         </Stack>
           </Drawer>
         </Box>
-        <Link to='/signup'>Signup</Link>
-        <Link to='/login'>Login</Link>
-        <button onClick={handleLogout}>logout</button>
+        {!user?(<Box sx={{display:{xs:'none',md:'flex'},gap:'1rem'}}>
+        <Link style={{
+        // display:{sx:'none',md:'none'},
+        padding:'.5em 1em',
+        border:'none',
+        backgroundColor:'lightblue',
+        color:'black',
+        textDecoration:'none',
+        fontSize:'1.25rem'}}
+        to='/signup'>Signup</Link>
+        <Link style={{padding:'.5em 1em',
+        border:'none',
+        backgroundColor:'lightblue',
+        color:'black',
+        textDecoration:'none',
+        fontSize:'1.25rem'}} to='/login'>Login</Link>
+        </Box>):<></>}
     </NavbarContainer>
   );
 }

@@ -4,8 +4,8 @@ import { styled} from '@mui/system';
 const lineAnimationDuration="200ms"
 const cardContentAnimationDuration="400ms"
 
-const Card=styled('div')(({bgImage})=>({
-    backgroundImage:`url(${bgImage})`,
+const Card=styled('div')(({bgimage})=>({
+    backgroundImage:`url(${bgimage})`,
     backgroundRepeat:'no-repeat',
     backgroundSize:'cover',
     backgroundPosition:'center',
@@ -71,9 +71,9 @@ const CardSummary=styled('p')({
     transition:'opacity linear 200ms 200ms'
 })
 
-const CustomCard = ({title,summary,bgImage}) => {
+const CustomCard = ({title,summary,bgimage}) => {
   return (
-    <Card bgImage={bgImage}>
+    <Card bgimage={bgimage} style={{width:'max(10%,300px)',Height:'100%'}}>
         <CardContent className='card-content'>
             <CardTitle className='card-title'>{title}</CardTitle>
             <CardSummary className='card-summary'>{summary}</CardSummary>
