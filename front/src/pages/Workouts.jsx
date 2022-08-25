@@ -35,9 +35,27 @@ const Workouts = () => {
     }, [dispatch, user])
     console.log(state)
   return (
-    <Box style={{display:'flex',justifyContent:'space-around',padding:'2rem',backgroundColor:'#f1f1f1',minHeight:'100vh'}}
-    sx={{flexDirection:{xs:'column',md:'row'},alignItems:{xs:'center'}}}>
-    <div style={{display:'flex',flexDirection:'column',gap:'2rem',flexWrap:'wrap',padding:'1rem',width:'60%'}}>
+    <Box style={{
+    display:'flex',
+    justifyContent:'space-around',
+    padding:'2rem',
+    backgroundColor:'#f1f1f1',
+    minHeight:'100vh',
+    border:'solid 1px yellow'
+  }}
+    sx={{
+    flexDirection:{xs:'column',md:'row'},
+    alignItems:{xs:'center',md:'flex-start'}}}>
+
+    <div style={{
+    display:'flex',flexDirection:'column',
+    gap:'2rem',
+    flexWrap:'wrap',
+    padding:'1rem',
+    width:{xs:'100%',md:'60%'},
+    // minWidth:{xs:'300px',md:'600px',lg:'800px'},
+    border:'solid 1px black',
+    justifyContent:'flex-start'}}>
       
       {state.workouts.length!=0 && state.workouts.map(workout=>(
         <ExerciseCard key={workout._id} workout={workout}/>

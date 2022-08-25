@@ -42,7 +42,7 @@ const {user}=useAuthenticationContext()
             <IconButton size='large' href='/'>
                 <HomeIcon sx={{height:'60px',width:'60px',color:'white'}}/>
             </IconButton>
-            <Typography component='h1' sx={{fontSize:{xs:'20px',md:'40px'}}} color='white'>Workout Buddy</Typography>
+            <Typography component='h1' sx={{fontSize:{xs:'20px',md:'30px'}}} color='white'>Workout Buddy</Typography>
         </Box>
         {/* NAVIGATION LINKS */}
         <Box sx={{alignItems:'center',px:'1rem',gap:"4rem",display:{xs:'none',md:'flex'}}}>
@@ -61,6 +61,7 @@ const {user}=useAuthenticationContext()
         size='large'
         onClick={handleClick}
         style={{position:'relative'}}
+        sx={{display:{xs:'none',md:"block"}}}
       >
         {/* <p style={{position:'absolute',fontSize:'1.75rem',width:'100%',height:'0%',top:'100%',display:'flex',justifyContent:'center',alignItems:'center',color:"red"}}>{user.email.substr(0,2 )}</p> */}
         <AccountCircleIcon sx={{height:"80px",width:'80px'}}/>
@@ -112,7 +113,7 @@ const {user}=useAuthenticationContext()
         </Stack>
           </Drawer>
         </Box>
-        {!user?(<Box sx={{display:{xs:'none',md:'flex'},gap:'1rem'}}>
+        {!user?(<Box sx={{display:{xs:'none',md:'flex'},gap:'1rem',mr:4}}>
         <Link style={{
         // display:{sx:'none',md:'none'},
         padding:'.5em 1em',

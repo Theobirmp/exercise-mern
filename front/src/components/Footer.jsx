@@ -58,8 +58,8 @@ const FooterContent=styled('div')({
 })
 const Footer = () => {
   return (
-    <FooterContainer>
-        <Typography component='h3' style={{textTransform:"capitalize",fontSize:'2rem',fontWeight:'bold',textAlign:'center'}}>Feel Free to Contact Me</Typography>
+    <FooterContainer style={{marginTop:'auto'}}>
+        <Typography component='h3' sx={{fontSize:{xs:'1.5rem',sm:'2rem'}}} style={{textTransform:"capitalize",fontWeight:'bold',textAlign:'center'}}>Feel Free to Contact Me</Typography>
         <FooterContent>
                 <IconButton className="icon" disableRipple onClick={()=>window.open('https://github.com/theobirmp')}>
                     <GitHubIcon className="icon-relative"/>
