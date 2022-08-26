@@ -42,12 +42,12 @@ const Slider = () => {
       slidesPerView={1}
       // style={{display:'flex',justifyContent:'center',alignItems:'center'}}
     >
-      <SwiperSlide>
+      {/* <SwiperSlide>
             <div style={{display:'flex',flexDirection:'row',height:'100%'}}>
               <CustomCard title='css3' summary='Responsive Layouting, Animations' bgImage={cssImage}/>
               <img src={workoutImage1} alt=""/>
             </div>
-        </SwiperSlide>
+        </SwiperSlide> */}
       <SwiperSlide><img src={workoutImage1} alt="" /></SwiperSlide>
       <SwiperSlide><img src={workoutImage1} alt="" /></SwiperSlide>
       <SwiperSlide><img src={workoutImage1} alt="" /></SwiperSlide>

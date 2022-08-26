@@ -57,7 +57,7 @@ const Workouts = () => {
     border:'solid 1px black',
     justifyContent:'flex-start'}}>
       
-      {state.workouts.length!=0 && state.workouts.map(workout=>(
+      {state.workouts?.length!=0 && state.workouts?.map(workout=>(
         <ExerciseCard key={workout._id} workout={workout}/>
       ))}
     

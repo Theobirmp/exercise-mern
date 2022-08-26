@@ -16,7 +16,7 @@ const NotFound = () => {
   useEffect(()=>{
     handleReduceTimer()
     if(timer==0) handleManualNavigate()
-    return clearTimeout(handleReduceTimer)
+    return ()=>clearTimeout(handleReduceTimer)
   },[timer])
     return (
    <Stack mt={4} gap={4} style={{marginInline:'auto',width:'clamp(300px,50%,1000px)'}}>

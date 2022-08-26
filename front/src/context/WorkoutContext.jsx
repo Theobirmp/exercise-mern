@@ -23,6 +23,11 @@ export const workoutReducer = (state,action)=>{
                     return workout
                 })
             }
+            case 'RESET_WORKOUTS':
+                return {
+                    ...state,workouts:null
+                    // workouts:action.payload
+                }
         default :
             return state
     }
